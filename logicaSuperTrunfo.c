@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 // Desafio Super Trunfo - Países
 // Tema 2 - Comparação das Cartas
@@ -20,6 +22,8 @@ int main() {
     float dens1, dens2;
     float percap1, percap2;
     float super1, super2;
+     int ataque1, ataque2, defesa1, defesa2, recuo1, recuo2;
+    char primeiroAtributo, segundoAtributo;
 
     // -------- CARTA 1 --------
     printf("Estado: ");
@@ -247,6 +251,129 @@ int main() {
             printf("Opcao invalida!\n");
             break;
     }
+
+
+    srand(time(0));
+
+    // Gera valores aleatórios entre 1 e 100
+    ataque1 = rand() % 100 + 1;
+    ataque2 = rand() % 100 + 1;
+    defesa1 = rand() % 100 + 1;
+    defesa2 = rand() % 100 + 1;
+    recuo1  = rand() % 100 + 1;
+    recuo2  = rand() % 100 + 1;
+
+    // Início do jogo
+    printf("Bem-vindo ao jogo!\n");
+
+    // ==========================
+    // ESCOLHA DO PRIMEIRO ATRIBUTO
+    // ==========================
+    printf("Escolha o primeiro atributo:\n");
+    printf("A. Ataque\n");
+    printf("D. Defesa\n");
+    printf("R. Recuo\n");
+
+    printf("Escolha: ");
+    scanf(" %c", &primeiroAtributo);
+
+    // ==========================
+    // MENU DINÂMICO PARA O SEGUNDO ATRIBUTO
+    // ==========================
+    printf("\nEscolha o segundo atributo (diferente do primeiro):\n");
+
+    if (primeiroAtributo != 'A' && primeiroAtributo != 'a')
+        printf("A. Ataque\n");
+
+    if (primeiroAtributo != 'D' && primeiroAtributo != 'd')
+        printf("D. Defesa\n");
+
+    if (primeiroAtributo != 'R' && primeiroAtributo != 'r')
+        printf("R. Recuo\n");
+
+    printf("Escolha: ");
+    scanf(" %c", &segundoAtributo);
+
+    // Impede repetir o mesmo atributo
+    if (segundoAtributo == primeiroAtributo ||
+        segundoAtributo == primeiroAtributo + 32 ||
+        segundoAtributo == primeiroAtributo - 32) {
+
+        printf("\nERRO: O segundo atributo nao pode ser igual ao primeiro!\n");
+        return 0;
+    }
+
+    // ==========================
+    // PEGAR VALORES DOS ATRIBUTOS
+    // ==========================
+    int valor1A, valor2A;
+    int valor1B, valor2B;
+
+    // ---- Primeiro atributo ----
+    switch (primeiroAtributo) {
+        case 'A': case 'a':
+            valor1A = ataque1;
+            valor2A = ataque2;
+            break;
+
+        case 'D': case 'd':
+            valor1A = defesa1;
+            valor2A = defesa2;
+            break;
+
+        case 'R': case 'r':
+            valor1A = recuo1;
+            valor2A = recuo2;
+            break;
+    }
+
+    // ---- Segundo atributo ----
+    switch (segundoAtributo) {
+        case 'A': case 'a':
+            valor1B = ataque1;
+            valor2B = ataque2;
+            break;
+
+        case 'D': case 'd':
+            valor1B = defesa1;
+            valor2B = defesa2;
+            break;
+
+        case 'R': case 'r':
+            valor1B = recuo1;
+            valor2B = recuo2;
+            break;
+    }
+
+    // ==========================
+    // SOMA FINAL
+    // ==========================
+    int soma1 = valor1A + valor1B;
+    int soma2 = valor2A + valor2B;
+
+    // ==========================
+    // RESULTADO
+    // ==========================
+    printf("\n===== RESULTADO =====\n\n");
+
+    printf("Primeiro atributo: %c -> %d x %d\n",
+           primeiroAtributo, valor1A, valor2A);
+
+    printf("Segundo atributo: %c -> %d x %d\n\n",
+           segundoAtributo, valor1B, valor2B);
+
+    printf("Soma final:\n");
+    printf("Carta 1: %d\n", soma1);
+    printf("Carta 2: %d\n\n", soma2);
+
+    if (soma1 > soma2)
+        printf("Vencedor: Carta 1!\n");
+    else if (soma2 > soma1)
+       printf("Vencedor: Carta 2!\n");
+    else
+        printf("Empate!\n");
+        
+        
 
     
    
